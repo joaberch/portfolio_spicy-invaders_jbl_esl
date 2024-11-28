@@ -1,0 +1,6 @@
+28.11.2024 début du projet
+Début du portfolio, décision de travailler sur le Space Invaders, objectif drop un loot qui change l'arme
+
+28.11.2024 16:33
+Nos user story était en markdown, on les change en issue
+
