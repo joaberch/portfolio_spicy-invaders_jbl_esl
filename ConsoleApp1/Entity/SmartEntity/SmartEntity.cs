@@ -85,9 +85,9 @@ namespace Entity
         /// Virtual hit method for when an entity is hit by a projetile.
         /// </summary>
         /// <param name="projectile">The projectile which hit the entity.</param>
-        public virtual void Hit(Projectile projectile) 
+        public virtual Drop? Hit(Projectile projectile) 
         { 
-
+            return null;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace Entity
         /// override for Hit method which lowers enemy's healthpoints by the projectile type's damage. If health points are zero than enemy is dead and starts to explode.
         /// </summary>
         /// <param name="projectile"></param>
-        public override void Hit(Projectile projectile) 
+        public override Drop? Hit(Projectile projectile) 
         { 
             this.HealthPoints -= projectile.Damage;
             this.IsHit = true;
@@ -81,7 +81,12 @@ namespace Entity
             {
                 this.IsAlive = false;
                 this.ExplosionLevel = 1;
+                if (Type == EnemyType.Melon)
+                {
+                    return new Drop(Position.X, Position.Y, DropType.weaponUpgrade);
+                }
             }
+            return null;
         }
 
     }
