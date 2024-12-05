@@ -416,17 +416,21 @@ namespace Spicy_Invaders
         /// <param name="xpos">x position where to start displaying the title</param>
         /// <param name="ypos">y position where to start displaying the title</param>
         /// <param name="wave">current wave(level)</param>
-        public static void DrawGameInfo(List<string> text, int score, string name, int xpos, int ypos, int wave)
+        public static void DrawGameInfo(List<string> text, int score, string name, int xpos, int ypos, int wave, Entity.WeaponType weapon)
         {
             string nameAndScore = "";
             string waveText = $"{text[0]} : {wave}";
+            string weaponText = $"{weapon}";
             string optionsText = $"{text[1]}(O)";
 
             Console.SetCursorPosition(2, ypos);
 
             Console.Write(waveText);
             Console.SetCursorPosition(2, ypos + 2);
-            Console.Write(optionsText);
+            Console.WriteLine(optionsText);
+            Console.SetCursorPosition(2, ypos + 4);
+            Console.Write(weaponText);
+
 
             if (name is null)
             {
