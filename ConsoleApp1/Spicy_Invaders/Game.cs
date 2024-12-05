@@ -1,4 +1,9 @@
-﻿using System;
+﻿//ETML 
+///Auteur : Joachim Berchel & Ethan Schafstall
+///Date : 05.12.2024 
+///Description : Manage timeframe of the game, has the game loop
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

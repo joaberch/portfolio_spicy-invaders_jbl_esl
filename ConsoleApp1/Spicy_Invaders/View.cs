@@ -1,4 +1,9 @@
-﻿using Entity;
+﻿//ETML 
+///Auteur : Joachim Berchel & Ethan Schafstall
+///Date : 05.12.2024 
+///Description : View of the game
+
+using Entity;
 using System.Drawing;
 using Language;
 

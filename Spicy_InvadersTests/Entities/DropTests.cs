@@ -1,4 +1,9 @@
-﻿using System;
+﻿//ETML 
+///Author : Joachim Berchel & Ethan Schafstall
+///Date : 05.12.2024 
+///Description : Test the drop object
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
