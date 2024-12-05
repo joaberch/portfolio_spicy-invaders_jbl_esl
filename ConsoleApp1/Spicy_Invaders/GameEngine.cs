@@ -265,7 +265,7 @@ namespace Spicy_Invaders
         {
             for (int i = 0; i < Drops.Count; i++)
             {
-                if (Drops[i].Position.Y + Drops[i].Velocity.Y >= GameSettings.GAMEBOARD_Y_LIMIT && Drops[i].TravelDirection == Direction.Down)
+                if (Drops[i].Position.Y + Drops[i].Velocity.Y >= PlayerShip.Position.Y && Drops[i].TravelDirection == Direction.Down)
                 {
                     Drops.RemoveAt(i);
                 }
