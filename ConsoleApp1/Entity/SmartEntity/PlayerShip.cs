@@ -28,7 +28,7 @@ namespace Entity
         /// override Hit method, if the playership is hit than IsHit becomes true, healthPoints are lowered by 1. player is dead if healthpoints is zero.
         /// </summary>
         /// <param name="projectile"></param>
-        public override Drop? Hit(Projectile projectile) 
+        public override void Hit(Projectile projectile) 
         {
             this.IsHit = true;
             this.HealthPoints -= 1;
@@ -36,7 +36,6 @@ namespace Entity
             {
                 this.IsAlive = false;
             }
-            return null;
         }
     }
 }

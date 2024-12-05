@@ -68,16 +68,12 @@ namespace Entity
             {
                 default:
                     return new Bullet(ShootXPos, ShootYPos, FaceDirection);
-                    break;
                 case WeaponType.Gun:
                     return new Bullet(ShootXPos, ShootYPos, FaceDirection);
-                    break;
                 case WeaponType.MissileLauncher:
                     return new Missile(ShootXPos, ShootYPos, FaceDirection);
-                    break;
                 case WeaponType.LaserGun:
                     return new Laser(ShootXPos, ShootYPos, FaceDirection);
-                    break;
             }
         }
 
@@ -85,9 +81,8 @@ namespace Entity
         /// Virtual hit method for when an entity is hit by a projetile.
         /// </summary>
         /// <param name="projectile">The projectile which hit the entity.</param>
-        public virtual Drop? Hit(Projectile projectile) 
+        public virtual void Hit(Projectile projectile) 
         { 
-            return null;
         }
     }
 }

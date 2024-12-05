@@ -172,6 +172,15 @@ namespace Spicy_Invaders
         {
             Console.Clear();
         }
+        public static void DrawDrops(List<Drop> drops)
+        {
+            foreach (var item in drops)
+            {
+                
+                Console.SetCursorPosition(item.Position.X, item.Position.Y);
+                Console.Write("x");
+            }
+        }
         /// <summary>
         /// Method responsible for for drawing/displaying enemies from a list, based on the each enemy's type.
         /// The method also changes the color for hit enemies, and displays exploded enemies (although its a different method which handles the explode writing)
@@ -407,17 +416,21 @@ namespace Spicy_Invaders
         /// <param name="xpos">x position where to start displaying the title</param>
         /// <param name="ypos">y position where to start displaying the title</param>
         /// <param name="wave">current wave(level)</param>
-        public static void DrawGameInfo(List<string> text, int score, string name, int xpos, int ypos, int wave)
+        public static void DrawGameInfo(List<string> text, int score, string name, int xpos, int ypos, int wave, Entity.WeaponType weapon)
         {
             string nameAndScore = "";
             string waveText = $"{text[0]} : {wave}";
+            string weaponText = $"{weapon}";
             string optionsText = $"{text[1]}(O)";
 
             Console.SetCursorPosition(2, ypos);
 
             Console.Write(waveText);
             Console.SetCursorPosition(2, ypos + 2);
-            Console.Write(optionsText);
+            Console.WriteLine(optionsText);
+            Console.SetCursorPosition(2, ypos + 4);
+            Console.Write(weaponText);
+
 
             if (name is null)
             {

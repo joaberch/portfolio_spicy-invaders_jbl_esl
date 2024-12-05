@@ -25,7 +25,7 @@ namespace Spicy_InvadersTests.Entities
 
 
             // Act
-            drops.Add(enemy.Hit(bullet));
+            drops.Add(enemy.DropLoot());
 
             // Assert
             Assert.AreEqual(drops.Count(), 1);
@@ -37,49 +37,83 @@ namespace Spicy_InvadersTests.Entities
         {
             // Arrange
             GameEngine gameEngine = new GameEngine();
-            Game game = new Game(new Language.English(), (WeaponType)2, ConsoleColor.Gray, new List<ConsoleKey> { });
-
-            int baseXPos = 3;
-            int baseYPos = 3;
-            Drop drop = new Drop(baseXPos, baseYPos, dropType: DropType.weaponUpgrade);
-
-            Enemy enemy = new Enemy(10, 10, EnemyType.Melon);
-
-            // TODO : this list doesn't exist yet. 
-            //gameEngine.Drops.Add(drop);
-            game.GameLogic = gameEngine;
+            int baseYPos = 10;
+            int baseXPos = 10;
+            Drop drop = new Drop(baseXPos, baseYPos, DropType.weaponUpgrade);
+            gameEngine.Drops.Add(drop);
 
             // Act 
-            game.Run();
+            gameEngine.MoveDrop();
 
             // Assert
-            Assert.AreNotEqual(drop.Position.X, baseXPos);
+            Assert.AreNotEqual(gameEngine.Drops[0].Position.Y, baseYPos);
         }
         [TestMethod]
-        public void LootDropDisappears()
+        public void LootDropDisappearsBelowPlayer()
         {
             // Arrange
             GameEngine gameEngine = new GameEngine();
-            Game game = new Game(new Language.English(), (WeaponType)2, ConsoleColor.Gray, new List<ConsoleKey> { });
-
-            int baseXPos = 10;
-            int baseYPos = 10;
-            Drop drop = new Drop(baseXPos, baseYPos, dropType: DropType.weaponUpgrade);
-
-            Enemy enemy = new Enemy(3, 3, EnemyType.Melon);
-
-            // TODO : this list doesn't exist yet. 
-            //gameEngine.Drops.Add(drop);
-            game.GameLogic = gameEngine;
+            int playerXPos = gameEngine.PlayerShip.Position.X;
+            int playerYPos = gameEngine.PlayerShip.Position.Y;
+            Drop drop = new Drop(playerXPos, playerYPos, DropType.weaponUpgrade);
+            gameEngine.Drops.Add(drop);
 
             // Act 
-            game.Run();
+            gameEngine.MoveDrop();
+            gameEngine.CheckDropBounderies();
+
+            // Assert
+            bool dropsListEmpty = gameEngine.Drops.Count() < 1;
+            Assert.IsTrue(dropsListEmpty);
+        }
+        [TestMethod]
+        public void LootDropDisappearsAbovePlayer()
+        {
+            // Arrange
+            GameEngine gameEngine = new GameEngine();
+            int playerXPos = gameEngine.PlayerShip.Position.X;
+            int playerYPos = gameEngine.PlayerShip.Position.Y;
+            Drop drop = new Drop(playerXPos-5, playerYPos-5, DropType.weaponUpgrade);
+            gameEngine.Drops.Add(drop);
+
+            // Act 
+            gameEngine.CheckDropBounderies();
+
+            // Assert
+            bool dropsListEmpty = gameEngine.Drops.Count() < 1;
+            Assert.IsFalse(dropsListEmpty);
+        }
+        [TestMethod]
+        public void PlayerUpgradesWeapon()
+        {
+            // Arrange
+            GameEngine gameEngine = new GameEngine();
+            int XPos = gameEngine.PlayerShip.Position.X;
+            int YPos = gameEngine.PlayerShip.Position.Y;
+            Drop drop = new Drop(XPos, YPos, DropType.weaponUpgrade);
+            gameEngine.Drops.Add(drop);
+            var currentWeapon = gameEngine.PlayerShip.Weapon;
+
+            // Act 
+            gameEngine.MoveDrop();
 
 
             // Assert
-            // TODO
-            //bool dropsListEmpty = game.GameLogic.Drops.Count() < 1;
-            //Assert.IsTrue(dropsListEmpty);
+            var newWeapon = gameEngine.PlayerShip.Weapon;
+            Assert.AreNotEqual(currentWeapon, newWeapon);
+        }
+        [TestMethod]
+        public void CheckPlayerDropCollision()
+        {
+            // Arrange
+            GameEngine gameEngine = new GameEngine();
+            int XPos = gameEngine.PlayerShip.Position.X;
+            int YPos = gameEngine.PlayerShip.Position.Y;
+            Drop drop = new Drop(XPos, YPos, DropType.weaponUpgrade);
+            gameEngine.Drops.Add(drop);
+
+            // Act & Assert
+            Assert.IsTrue(gameEngine.CheckDropperHasSamePositionAsPlayer(drop));
         }
     }
 }

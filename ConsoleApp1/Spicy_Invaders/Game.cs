@@ -111,6 +111,7 @@ namespace Spicy_Invaders
                 if (counter % projectileMove == 0)
                 {
                     GameLogic.MoveProjectile();
+                    GameLogic.MoveDrop();
                 }
 
                 // player movement controls
@@ -120,11 +121,13 @@ namespace Spicy_Invaders
                 // display window border
                 View.DrawWindow(GameSettings.WINDOW_WIDTH - 2, GameSettings.WINDOW_HEIGHT - 2, _color);
                 // display game info
-                View.DrawGameInfo(_language.GameplayText(), Player.Score, Player.Alias, GameSettings.WINDOW_WIDTH, 2, wave);
+                View.DrawGameInfo(_language.GameplayText(), Player.Score, Player.Alias, GameSettings.WINDOW_WIDTH, 2, wave, GameLogic.PlayerShip.Weapon);
                 // display game title
                 View.DrawGameTitle(titleXPos, 2, _color, _language);
                 // check projectile positions
                 GameLogic.CheckProjectileBounderies();
+                // check drop positions
+                GameLogic.CheckDropBounderies();
                 // check if projectile positions and enemy/player positions overlap
                 GameLogic.ProjectileCollisionDetection();
                 // display projectiles
@@ -133,10 +136,12 @@ namespace Spicy_Invaders
                 View.DrawPlayer(GameLogic.PlayerShip);
                 // display enemies
                 View.DrawEnemies(GameLogic.Enemies);
+                // display drop
+                View.DrawDrops(GameLogic.Drops);
                 // update explosion level for explosion animation
                 GameLogic.UpdateExplosionLevel();
                 // add points to player score while also removing dead enemies from enemy list
-                Player.Score += GameLogic.RemoveDeadEnemey();
+                Player.Score += GameLogic.RemoveDeadEnemy();
 
                 counter++;
                 Thread.Sleep(1);
