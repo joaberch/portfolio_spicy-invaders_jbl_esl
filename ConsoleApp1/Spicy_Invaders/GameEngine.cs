@@ -27,7 +27,7 @@ namespace Spicy_Invaders
         /// <summary>
         /// All drop item
         /// </summary>
-        public List<Drop> Drops { get; }
+        public List<Drop> Drops { get; set; }
         /// <summary>
         /// The player controlled ship
         /// </summary>
