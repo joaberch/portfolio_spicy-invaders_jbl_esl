@@ -88,11 +88,11 @@ namespace Spicy_Invaders
         {
             foreach (var item in Drops)
             {
-                item.Position.Y += item.Velocity.Y;
                 if (CheckDropperHasSamePositionAsPlayer(item))
                 {
                     ChangePlayerShipWeapon();
                 }
+                item.Position.Y += item.Velocity.Y;
             }
         }
 
