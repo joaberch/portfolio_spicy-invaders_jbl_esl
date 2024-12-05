@@ -172,6 +172,15 @@ namespace Spicy_Invaders
         {
             Console.Clear();
         }
+        public static void DrawDrops(List<Drop> drops)
+        {
+            foreach (var item in drops)
+            {
+                
+                Console.SetCursorPosition(item.Position.X, item.Position.Y);
+                Console.Write("x");
+            }
+        }
         /// <summary>
         /// Method responsible for for drawing/displaying enemies from a list, based on the each enemy's type.
         /// The method also changes the color for hit enemies, and displays exploded enemies (although its a different method which handles the explode writing)

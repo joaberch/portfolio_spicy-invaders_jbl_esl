@@ -25,6 +25,10 @@ namespace Spicy_Invaders
         /// </summary>
         public List<Projectile> Projectiles { get; }
         /// <summary>
+        /// All drop item
+        /// </summary>
+        public List<Drop> Drops { get; }
+        /// <summary>
         /// The player controlled ship
         /// </summary>
         public PlayerShip PlayerShip { get; }
@@ -34,6 +38,7 @@ namespace Spicy_Invaders
             this.Projectiles = new List<Projectile>();
             this.PlayerShip = new PlayerShip(GameSettings.PLAYER_START_POS.X, GameSettings.PLAYER_START_POS.Y);
             this.ControlKeys = consoleKeys;
+            this.Drops = new List<Drop>();
         }
         public GameEngine()
         {
@@ -75,6 +80,14 @@ namespace Spicy_Invaders
                 Enemy spawnedMelon = new Enemy(GameSettings.ENEMY_START_POS.X, GameSettings.ENEMY_START_POS.Y, EnemyType.Melon, Direction.Right);
                 spawnedMelon.Velocity = new Vector(2, 2);
                 Enemies.Add(spawnedMelon);
+            }
+        }
+
+        public void MoveDrop()
+        {
+            foreach (var item in Drops)
+            {
+                item.Position.Y += item.Velocity.Y;
             }
         }
 
@@ -215,6 +228,16 @@ namespace Spicy_Invaders
                 }
             }
         }
+        public void CheckDropBounderies()
+        {
+            for (int i = 0; i < Drops.Count; i++)
+            {
+                if (Drops[i].Position.Y + Drops[i].Velocity.Y >= GameSettings.GAMEBOARD_Y_LIMIT && Drops[i].TravelDirection == Direction.Down)
+                {
+                    Drops.RemoveAt(i);
+                }
+            }
+        }
 
         /// <summary>
         /// Method responsible for making sure the player is within gameboard bounderies
@@ -308,10 +331,19 @@ namespace Spicy_Invaders
                 if (Enemies[i].IsAlive == false && Enemies[i].ExplosionLevel == 4)
                 {
                     points += Enemies[i].Points;
+                    if ( /* Enemies[i].Type == EnemyType.Melon*/ true)
+                    {
+                        Drop drop = Enemies[i].DropLoot();
+                        AddDrop(drop);
+                    }
                     Enemies.RemoveAt(i);
                 }
             }
             return points;
+        }
+        public void AddDrop(Drop drop)
+        {
+            Drops.Add(drop);
         }
         /// <summary>
         /// updates explosion levels based on the current explosion level.
