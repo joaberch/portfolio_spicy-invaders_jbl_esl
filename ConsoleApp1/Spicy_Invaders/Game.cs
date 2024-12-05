@@ -1,4 +1,9 @@
-﻿using System;
+﻿//ETML 
+///Auteur : Joachim Berchel & Ethan Schafstall
+///Date : 05.12.2024 
+///Description : Manage timeframe of the game, has the game loop
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -121,7 +126,7 @@ namespace Spicy_Invaders
                 // display window border
                 View.DrawWindow(GameSettings.WINDOW_WIDTH - 2, GameSettings.WINDOW_HEIGHT - 2, _color);
                 // display game info
-                View.DrawGameInfo(_language.GameplayText(), Player.Score, Player.Alias, GameSettings.WINDOW_WIDTH, 2, wave);
+                View.DrawGameInfo(_language.GameplayText(), Player.Score, Player.Alias, GameSettings.WINDOW_WIDTH, 2, wave, GameLogic.PlayerShip.Weapon);
                 // display game title
                 View.DrawGameTitle(titleXPos, 2, _color, _language);
                 // check projectile positions
