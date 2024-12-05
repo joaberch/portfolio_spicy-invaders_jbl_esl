@@ -10,7 +10,7 @@ using Entity;
 namespace Spicy_InvadersTests.Entities
 {
     [TestClass]
-    public class EnemySpawnerTests
+    public class DropTests
     {
 
         [TestMethod]
