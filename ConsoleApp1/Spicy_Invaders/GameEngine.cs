@@ -61,8 +61,8 @@ namespace Spicy_Invaders
 
                 int yPosition = 0;
                 int yVelocity = 5;
-                
-                if ((int)randomType-3 > 3)
+
+                if ((int)randomType - 3 > 3)
                 {
                     randomType = EnemyType.Grape;
                 }
@@ -88,7 +88,40 @@ namespace Spicy_Invaders
             foreach (var item in Drops)
             {
                 item.Position.Y += item.Velocity.Y;
+                if (CheckDropperHasSamePositionAsPlayer(item))
+                {
+                    ChangePlayerShipWeapon();
+                }
             }
+        }
+
+        public void ChangePlayerShipWeapon()
+        {
+            int nbrWeapon = Enum.GetNames(typeof(WeaponType)).Length;
+            Random random = new Random();
+            var weaponNumberSelected = 0;
+            do
+            {
+                weaponNumberSelected = random.Next(nbrWeapon);
+            } while (weaponNumberSelected == (int)PlayerShip.Weapon);
+            PlayerShip.Weapon = (WeaponType)weaponNumberSelected;
+        }
+
+        public void ChangePlayerShipWeapon(WeaponType type)
+        {
+            PlayerShip.Weapon = type;
+        }
+
+        public bool CheckDropperHasSamePositionAsPlayer(Drop drop)
+        {
+            if (PlayerShip.Position.X >= drop.Position.X &&
+                PlayerShip.Position.X <= drop.Position.X + PlayerShip.EntityWidth &&
+                PlayerShip.Position.Y >= drop.Position.Y &&
+                PlayerShip.Position.Y <= drop.Position.Y + PlayerShip.EntityWidth)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -282,11 +315,11 @@ namespace Spicy_Invaders
                 }
                 if (pressedKey.Key == ConsoleKey.Spacebar)
                 {
-                    
+
                     switch (PlayerShip.Weapon)
                     {
                         case WeaponType.Gun:
-                            maxProjectilesOnScreen =  3;
+                            maxProjectilesOnScreen = 3;
                             break;
                         case WeaponType.LaserGun:
                             maxProjectilesOnScreen = 2;
@@ -323,7 +356,7 @@ namespace Spicy_Invaders
         /// Removes dead enemies from the enemy list
         /// </summary>
         /// <returns></returns>
-        public int RemoveDeadEnemey()
+        public int RemoveDeadEnemy()
         {
             int points = 0;
             for (int i = 0; i < Enemies.Count; i++)
@@ -331,7 +364,7 @@ namespace Spicy_Invaders
                 if (Enemies[i].IsAlive == false && Enemies[i].ExplosionLevel == 4)
                 {
                     points += Enemies[i].Points;
-                    if ( /* Enemies[i].Type == EnemyType.Melon*/ true)
+                    if ( Enemies[i].Type == EnemyType.Melon)
                     {
                         Drop drop = Enemies[i].DropLoot();
                         AddDrop(drop);

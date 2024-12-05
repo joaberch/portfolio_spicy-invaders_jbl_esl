@@ -141,7 +141,7 @@ namespace Spicy_Invaders
                 // update explosion level for explosion animation
                 GameLogic.UpdateExplosionLevel();
                 // add points to player score while also removing dead enemies from enemy list
-                Player.Score += GameLogic.RemoveDeadEnemey();
+                Player.Score += GameLogic.RemoveDeadEnemy();
 
                 counter++;
                 Thread.Sleep(1);
