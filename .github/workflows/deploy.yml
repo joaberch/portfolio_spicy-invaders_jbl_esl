@@ -1,0 +1,38 @@
+on:
+  push:
+  
+env:
+  DOTNET_VERSION: '8.0.300'
+  AZURE_FTP_HOST: 'joaeth-ftp.switzerlandnorth.cloudapp.azure.com' #51.107.20.126
+  AZURE_FTP_USERNAME: 'username'
+  AZURE_FTP_PASSWORD: ${{ secrets.AZURE_FTP_PASSWORD }}
+  AZURE_FTP_PORT: '3389'
+
+jobs:
+  build_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Install dependencies
+      run: dotnet restore
+
+    # TODO trigger another workflow for the CD
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Generate exe
+      run: dotnet publish -c Release
+      
+    - name: Connect to the FTP server
+      run: |
+        ftp
+        open ${{ env.AZURE_FTP_HOST }} ${{ env.AZURE_FTP_PORT }}
+        ${{ env.AZURE_FTP_USERNAME }}
+        ${{ env.AZURE_FTP_PASSWORD }}
