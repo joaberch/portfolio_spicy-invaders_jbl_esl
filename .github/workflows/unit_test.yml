@@ -1,0 +1,24 @@
+on:
+  push:
+
+env:
+  DOTNET_VERSION: '8.0.300'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Install dependencies
+      run: dotnet restore
+
+    # TODO - display which test failed
+    - name: Test
+      run: dotnet test -p:TestingPlatformShowTestsFailure=true --no-restore --verbosity minimal
