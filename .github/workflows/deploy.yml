@@ -33,6 +33,6 @@ jobs:
     - name: Connect to the FTP server
       run: |
         ftp
-        open ${{ env.AZURE_FTP_HOST }} ${{ env.AZURE_FTP_PORT }}
+        open ${{ env.AZURE_FTP_HOST }}
         ${{ env.AZURE_FTP_USERNAME }}
         ${{ env.AZURE_FTP_PASSWORD }}
