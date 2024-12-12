@@ -1,2 +1,2 @@
 # portfolio_spicy-invaders_jbl_esl
-[![.github/workflows/unit_test.yml](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/unit_test.yml/badge.svg)](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/unit_test.yml)
+[![.github/workflows/unit_test.yml](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/unit_test.yml/badge.svg)](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/unit_test.yml) [![.github/workflows/deploy.yml](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/joaberch/portfolio_spicy-invaders_jbl_esl/actions/workflows/deploy.yml)
