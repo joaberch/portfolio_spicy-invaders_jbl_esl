@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using DotNetEnv;
 
 namespace Data
 {
@@ -14,12 +15,14 @@ namespace Data
         /// </summary>
         public static bool Init()
         {
+            Env.Load();
             // connection variables
-            string serverAddress = "localhost";
-            string databaseName = "db_space_invaders";
-            string userID = "root";
-            string password = "root";
-            string portNumber = "6033";
+            
+            string serverAddress = Environment.GetEnvironmentVariable("DB_HOST");
+            string databaseName = Environment.GetEnvironmentVariable("DB_NAME");
+            string userID = Environment.GetEnvironmentVariable("DB_USERNAME");
+            string password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+            string portNumber = Environment.GetEnvironmentVariable("DB_PORT");
 
             // This string works exactly like how you would connect to a mysql DB via a CMD console, where you must into the command containing certain info.
 
