@@ -1,14 +1,6 @@
 on:
   push:
 
-env:
-  DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
-  AZURE_FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
-  AZURE_FTP_USERNAME: ${{ secrets.AZURE_FTP_USERNAME }}
-  AZURE_FTP_PASSWORD: ${{ secrets.AZURE_FTP_PASSWORD }}
-  AZURE_FTP_PORT: ${{ secrets.AZURE_FTP_PORT }}
-  GITHUB_TOKEN: ${{ secrets.ARTIFACT_LINK }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +11,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: ${{ vars.DOTNET_VERSION }}
         
     - name: Install dependencies
       run: dotnet restore
@@ -43,7 +35,7 @@ jobs:
       uses: beni69/artifact-link@v1
       with:
         summary: false
-        token: ${{ env.GITHUB_TOKEN }}
+        token: ${{ secrets.ARTIFACT_LINK }}
 
   deploy:
     needs: build
@@ -57,8 +49,8 @@ jobs:
     - name: Upload Artifact to FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ env.AZURE_FTP_HOST }}
-        username: ${{ env.AZURE_FTP_USERNAME }}
-        password: ${{ env.AZURE_FTP_PASSWORD }}
-        port: ${{ env.AZURE_FTP_PORT }}
+        server: ${{ secrets.AZURE_FTP_HOST }}
+        username: ${{ secrets.AZURE_FTP_USERNAME }}
+        password: ${{ secrets.AZURE_FTP_PASSWORD }}
+        port: ${{ secrets.AZURE_FTP_PORT }}
 
