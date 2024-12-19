@@ -2,11 +2,12 @@ on:
   push:
   
 env:
-  DOTNET_VERSION: '8.0.300'
-  AZURE_FTP_HOST: 'joaeth-ftp.switzerlandnorth.cloudapp.azure.com' #51.107.20.126
-  AZURE_FTP_USERNAME: 'username'
+  DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
+  AZURE_FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
+  AZURE_FTP_USERNAME: ${{ secrets.AZURE_FTP_USERNAME }}
   AZURE_FTP_PASSWORD: ${{ secrets.AZURE_FTP_PASSWORD }}
-  AZURE_FTP_PORT: '3389'
+  AZURE_FTP_PORT: ${{ secrets.AZURE_FTP_POST }}
+  GITHUB_TOKEN: ${{ secrets.ARTIFACT_LINKS }}
 
 jobs:
   build_deploy:
