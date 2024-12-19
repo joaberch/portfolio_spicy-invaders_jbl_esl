@@ -28,10 +28,32 @@ jobs:
       
     - name: Build Binary
       run: dotnet publish -c Release
-      
-    - name: Connect to the FTP server
-      run: |
-        ftp
-        open ${{ env.AZURE_FTP_HOST }}
-        ${{ env.AZURE_FTP_USERNAME }}
-        ${{ env.AZURE_FTP_PASSWORD }}
+
+    - name: Upload Aritifact
+    - uses: actions/upload-artifact@v4
+    
+  link:
+    needs: build # make sure the artifacts are uploaded first
+    permissions:
+        contents: write # for commenting on your commit
+    steps:
+      - name: Link Artifact
+      - uses: beni69/artifact-link@v1
+        with:
+          summary: false
+          token: ${{ env.GITHUB_TOKEN }}
+  deploy:  
+    - name: Upload Artifact
+    - uses: sokuhatiku/ftp-upload-artifact@v1
+      with:
+        name: portfolio_spicy-invaders_jbl_esl
+        path: path/to/artifact/world.txt
+        host: ${{ env.AZURE_FTP_HOST }}
+        port: ${{ env.AZURE_FTP_PORT }}
+        username: ${{ env.AZURE_FTP_USERNAME }}
+        password: ${{ env.AZURE_FTP_PASSWORD }}
+        secure: true
+        remote-path: /artifact/
+
+
+                      
