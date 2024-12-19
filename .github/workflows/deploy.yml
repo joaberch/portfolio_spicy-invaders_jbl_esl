@@ -17,7 +17,7 @@ jobs:
       run: dotnet restore
       
     - name: Build Binary
-      run: dotnet publish --artifacts-path artifact --configuration Release -p:PublishSingleFile=true
+      run: dotnet publish --artifacts-path artifact --configuration Release -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CopyOutputSymbolsToPublishDirectory=false --os=win -p:UseAppHost=true
       continue-on-error: true
 
     - name: Upload Artifact
