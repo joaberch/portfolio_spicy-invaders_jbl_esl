@@ -46,11 +46,14 @@ jobs:
       with:
         name: my-artifact
 
-    - name: Upload Artifact to FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.AZURE_FTP_HOST }}
-        username: ${{ secrets.AZURE_FTP_USERNAME }}
-        password: ${{ secrets.AZURE_FTP_PASSWORD }}
-        port: ${{ secrets.AZURE_FTP_PORT }}
+    - name: Setup ftp
+      run: sudo apt-get install lftp
+
+    - name: Upload artifact
+      env:
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
+      run: lftp -e "set ftp:ssl-allow no; mirror -R -I *.exe artifacts /artifact; quit" -u $FTP_USERNAME, $FTP_PASSWORD "ftps://${FTP_HOST}"
+      
 
