@@ -18,13 +18,12 @@ jobs:
       
     - name: Build Binary
       run: dotnet publish --artifacts-path artifact --configuration Release -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CopyOutputSymbolsToPublishDirectory=false --os=win -p:UseAppHost=true
-      continue-on-error: true
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: my-artifact
-        path: /home/runner/work/portfolio_spicy-invaders_jbl_esl/portfolio_spicy-invaders_jbl_esl/artifact/publish/Spicy_Invaders/release/
+        path: /home/runner/work/portfolio_spicy-invaders_jbl_esl/portfolio_spicy-invaders_jbl_esl/artifact/publish/Spicy_Invaders/release_win-x64/
 
   link:
     needs: build
