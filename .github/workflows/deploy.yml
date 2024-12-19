@@ -23,11 +23,9 @@ jobs:
         
     - name: Install dependencies
       run: dotnet restore
-
-    # TODO trigger another workflow for the CD
       
     - name: Build Binary
-      run: dotnet publish -c Release
+      run: dotnet publish --artifacts-path artifact -c Release
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
@@ -57,13 +55,10 @@ jobs:
         name: my-artifact
 
     - name: Upload Artifact to FTP
-      uses: sokuhatiku/ftp-upload-artifact@v1
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        name: portfolio_spicy-invaders_jbl_esl
-        path: path/to/artifact
-        host: ${{ env.AZURE_FTP_HOST }}
-        port: ${{ env.AZURE_FTP_PORT }}
+        server: ${{ env.AZURE_FTP_HOST }}
         username: ${{ env.AZURE_FTP_USERNAME }}
         password: ${{ env.AZURE_FTP_PASSWORD }}
-        secure: true
-        remote-path: /artifact
+        port: ${{ env.AZURE_FTP_PORT }}
+
