@@ -58,5 +58,3 @@ jobs:
         echo ls
         echo pwd
         lftp ftps://$FTP_USERNAME:$FTP_PASSWORD@${FTP_HOST} put *.*
-        lftp -e "set ftp:ssl-allow no; mirror -R -I *.exe /home/runner/work/portfolio_spicy-invaders_jbl_esl/portfolio_spicy-invaders_jbl_esl/artifact/publish/Spicy_Invaders/release_win-x64/ /artifact; quit" -u $FTP_USERNAME, $FTP_PASSWORD "ftps://${FTP_HOST}"
-      
