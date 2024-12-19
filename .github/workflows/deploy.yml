@@ -17,7 +17,7 @@ jobs:
       run: dotnet restore
       
     - name: Build Binary
-      run: dotnet publish --artifacts-path artifact -c Release
+      run: dotnet publish --artifacts-path artifact --configuration Release -p:PublishSingleFile=true
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
