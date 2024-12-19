@@ -45,6 +45,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: my-artifact
+        path: artifact\publish\Spicy_Invaders\release\Spicy_Invaders.exe
 
     - name: Upload Artifact to FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
