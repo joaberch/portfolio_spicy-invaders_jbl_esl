@@ -55,7 +55,6 @@ jobs:
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
       run: |
-        ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
         lftp ftps://${FTP_HOST}
         login $FTP_USERNAME $FTP_PASSWORD
         help
