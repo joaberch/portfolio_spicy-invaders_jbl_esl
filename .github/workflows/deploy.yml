@@ -10,7 +10,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.ARTIFACT_LINKS }}
 
 jobs:
-  build_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -25,10 +25,8 @@ jobs:
       run: dotnet restore
 
     # TODO trigger another workflow for the CD
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
       
-    - name: Generate exe
+    - name: Build Binary
       run: dotnet publish -c Release
       
     - name: Connect to the FTP server
