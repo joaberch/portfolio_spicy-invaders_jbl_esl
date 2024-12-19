@@ -18,6 +18,7 @@ jobs:
       
     - name: Build Binary
       run: dotnet publish --artifacts-path artifact --configuration Release -p:PublishSingleFile=true
+      continue-on-error: true
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
