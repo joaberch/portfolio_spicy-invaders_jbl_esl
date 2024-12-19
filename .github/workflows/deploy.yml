@@ -23,7 +23,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: my-artifact
-        path: artifact
+        path: artifact\publish\Spicy_Invaders\release\Spicy_Invaders.exe
 
   link:
     needs: build
