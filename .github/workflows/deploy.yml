@@ -1,13 +1,13 @@
 on:
   push:
-  
+
 env:
   DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
   AZURE_FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
   AZURE_FTP_USERNAME: ${{ secrets.AZURE_FTP_USERNAME }}
   AZURE_FTP_PASSWORD: ${{ secrets.AZURE_FTP_PASSWORD }}
-  AZURE_FTP_PORT: ${{ secrets.AZURE_FTP_POST }}
-  GITHUB_TOKEN: ${{ secrets.ARTIFACT_LINKS }}
+  AZURE_FTP_PORT: ${{ secrets.AZURE_FTP_PORT }}
+  GITHUB_TOKEN: ${{ secrets.ARTIFACT_LINK }}
 
 jobs:
   build:
@@ -31,26 +31,39 @@ jobs:
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
-    
+      with:
+        name: my-artifact
+        path: artifact
+
   link:
-    needs: build # make sure the artifacts are uploaded first
+    needs: build
+    runs-on: ubuntu-latest
     permissions:
-        contents: write # for commenting on your commit
+      contents: write
     steps:
-      - name: Link Artifact
-        uses: beni69/artifact-link@v1
-        with:
-          summary: false
-          token: ${{ env.GITHUB_TOKEN }}
-  deploy:  
-    - name: Upload Artifact
+    - name: Link Artifact
+      uses: beni69/artifact-link@v1
+      with:
+        summary: false
+        token: ${{ env.GITHUB_TOKEN }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: my-artifact
+
+    - name: Upload Artifact to FTP
       uses: sokuhatiku/ftp-upload-artifact@v1
       with:
         name: portfolio_spicy-invaders_jbl_esl
-        path: path/to/artifact/world.txt
+        path: path/to/artifact
         host: ${{ env.AZURE_FTP_HOST }}
         port: ${{ env.AZURE_FTP_PORT }}
         username: ${{ env.AZURE_FTP_USERNAME }}
         password: ${{ env.AZURE_FTP_PASSWORD }}
         secure: true
-        remote-path: /artifact/
+        remote-path: /artifact
