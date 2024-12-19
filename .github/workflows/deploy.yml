@@ -38,13 +38,13 @@ jobs:
         contents: write # for commenting on your commit
     steps:
       - name: Link Artifact
-      - uses: beni69/artifact-link@v1
+        uses: beni69/artifact-link@v1
         with:
           summary: false
           token: ${{ env.GITHUB_TOKEN }}
   deploy:  
     - name: Upload Artifact
-    - uses: sokuhatiku/ftp-upload-artifact@v1
+      uses: sokuhatiku/ftp-upload-artifact@v1
       with:
         name: portfolio_spicy-invaders_jbl_esl
         path: path/to/artifact/world.txt
