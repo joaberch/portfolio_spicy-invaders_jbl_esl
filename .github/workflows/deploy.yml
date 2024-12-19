@@ -54,6 +54,8 @@ jobs:
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         FTP_HOST: ${{ secrets.AZURE_FTP_HOST }}
-      run: lftp -e "set ftp:ssl-allow no; mirror -R -I *.exe artifacts /artifact; quit" -u $FTP_USERNAME, $FTP_PASSWORD "ftps://${FTP_HOST}"
+      run: |
+      ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+      lftp -e "set ftp:ssl-allow no; mirror -R -I *.exe artifact /artifact; quit" -u $FTP_USERNAME, $FTP_PASSWORD "ftps://${FTP_HOST}"
       
 
