@@ -29,8 +29,8 @@ jobs:
     - name: Build Binary
       run: dotnet publish -c Release
 
-    - name: Upload Aritifact
-    - uses: actions/upload-artifact@v4
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
     
   link:
     needs: build # make sure the artifacts are uploaded first
@@ -54,6 +54,3 @@ jobs:
         password: ${{ env.AZURE_FTP_PASSWORD }}
         secure: true
         remote-path: /artifact/
-
-
-                      
